@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sound Duet — Gallery</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080808;
+      --fg: #e8e4dc;
+      --accent: #c8b89a;
+      --dim: rgba(232, 228, 220, 0.35);
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'DM Mono', monospace;
+      min-height: 100%;
+    }
+
+    header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 40px 48px 32px;
+      border-bottom: 1px solid rgba(232,228,220,0.1);
+    }
+    header .title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 300;
+      font-style: italic;
+    }
+    header .subtitle {
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: var(--dim);
+    }
+    header a {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      padding: 10px 24px;
+      transition: all 0.3s ease;
+    }
+    header a:hover { background: var(--accent); color: var(--bg); }
+
+    #count {
+      padding: 24px 48px;
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--dim);
+      border-bottom: 1px solid rgba(232,228,220,0.05);
+    }
+
+    #gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2px;
+      padding: 2px;
+    }
+
+    .duet-card {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .duet-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .duet-card:hover img { transform: scale(1.04); }
+    .duet-card .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 20px;
+      gap: 6px;
+    }
+    .duet-card:hover .overlay { opacity: 1; }
+    .overlay .card-labels {
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: var(--accent);
+      line-height: 1.6;
+    }
+    .overlay .card-vibes {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--dim);
+      line-height: 1.4;
+    }
+    .overlay .card-date {
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: rgba(232,228,220,0.2);
+      margin-top: 4px;
+    }
+
+    #empty {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 60vh;
+      gap: 16px;
+    }
+    #empty .empty-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--dim);
+    }
+    #empty .empty-sub {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: rgba(232,228,220,0.2);
+    }
+    #empty a {
+      margin-top: 16px;
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      padding: 10px 24px;
+      transition: all 0.3s ease;
+    }
+    #empty a:hover { background: var(--accent); color: var(--bg); }
+
+    #loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 60vh;
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: var(--dim);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="title">Sound Duet</div>
+    <div class="subtitle">PUBLIC GALLERY</div>
+  </div>
+  <a href="index.html">CREATE YOUR DUET</a>
+</header>
+
+<div id="count"></div>
+<div id="loading">LOADING GALLERY...</div>
+<div id="gallery"></div>
+<div id="empty">
+  <div class="empty-title">No duets yet.</div>
+  <div class="empty-sub">BE THE FIRST TO CONTRIBUTE</div>
+  <a href="index.html">CREATE YOUR DUET</a>
+</div>
+
+<script>
+const GALLERY_URL = "https://rynamaru-try-number-three.hf.space/gallery";
+
+async function loadGallery() {
+  try {
+    const response = await fetch(GALLERY_URL);
+    const gallery = await response.json();
+
+    document.getElementById('loading').style.display = 'none';
+
+    if (gallery.length === 0) {
+      document.getElementById('empty').style.display = 'flex';
+      return;
+    }
+
+    document.getElementById('count').textContent =
+      `${gallery.length} DUET${gallery.length !== 1 ? 'S' : ''} IN THE COLLECTION`;
+
+    const container = document.getElementById('gallery');
+
+    // Show newest first
+    [...gallery].reverse().forEach(entry => {
+      const card = document.createElement('div');
+      card.className = 'duet-card';
+
+      const img = document.createElement('img');
+      img.src = `data:image/png;base64,${entry.image}`;
+      img.alt = 'Sound Duet';
+      img.loading = 'lazy';
+
+      const overlay = document.createElement('div');
+      overlay.className = 'overlay';
+
+      const labels = document.createElement('div');
+      labels.className = 'card-labels';
+      labels.textContent = (entry.labels || '').toUpperCase();
+
+      const vibes = document.createElement('div');
+      vibes.className = 'card-vibes';
+      vibes.textContent = entry.vibes || '';
+
+      const date = document.createElement('div');
+      date.className = 'card-date';
+      date.textContent = entry.timestamp || '';
+
+      overlay.appendChild(labels);
+      overlay.appendChild(vibes);
+      overlay.appendChild(date);
+      card.appendChild(img);
+      card.appendChild(overlay);
+      container.appendChild(card);
+    });
+
+  } catch (err) {
+    console.error(err);
+    document.getElementById('loading').textContent = 'FAILED TO LOAD GALLERY';
+  }
+}
+
+loadGallery();
+</script>
+</body>
+</html>

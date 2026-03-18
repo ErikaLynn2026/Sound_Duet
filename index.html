@@ -6,7 +6,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
     :root {
       --bg: #080808;
       --fg: #e8e4dc;
@@ -14,7 +14,7 @@
       --dim: rgba(232, 228, 220, 0.35);
       --red: #d44;
     }
-
+ 
     html, body {
       width: 100%;
       height: 100%;
@@ -23,8 +23,7 @@
       font-family: 'DM Mono', monospace;
       overflow: hidden;
     }
-
-    /* ── SCREENS ── */
+ 
     .screen {
       position: fixed;
       inset: 0;
@@ -38,12 +37,9 @@
       opacity: 0;
       pointer-events: none;
     }
-
-    /* ── INTRO SCREEN ── */
-    #intro {
-      gap: 0;
-      padding: 40px;
-    }
+ 
+    /* INTRO */
+    #intro { gap: 0; padding: 40px; }
     #intro .title {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(48px, 8vw, 96px);
@@ -68,11 +64,7 @@
       max-width: 480px;
       width: 100%;
     }
-    #intro .step {
-      display: flex;
-      align-items: flex-start;
-      gap: 20px;
-    }
+    #intro .step { display: flex; align-items: flex-start; gap: 20px; }
     #intro .step-num {
       font-size: 10px;
       letter-spacing: 2px;
@@ -86,52 +78,45 @@
       color: var(--dim);
       font-weight: 300;
     }
-    #intro .step-text em {
-      color: var(--fg);
-      font-style: normal;
-    }
+    #intro .step-text em { color: var(--fg); font-style: normal; }
     #intro .divider {
       width: 40px;
       height: 1px;
       background: var(--dim);
       margin-bottom: 60px;
     }
-    #begin-btn {
+    #intro-buttons { display: flex; gap: 16px; }
+    .intro-btn {
       background: transparent;
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      padding: 14px 48px;
+      border: 1px solid var(--dim);
+      color: var(--dim);
+      padding: 14px 32px;
       font-size: 11px;
       font-family: 'DM Mono', monospace;
       letter-spacing: 4px;
       cursor: pointer;
       transition: all 0.3s ease;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
     }
-    #begin-btn:hover {
-      background: var(--accent);
-      color: var(--bg);
+    .intro-btn:hover { border-color: var(--fg); color: var(--fg); }
+    .intro-btn.primary {
+      border-color: var(--accent);
+      color: var(--accent);
     }
-
-    /* ── DUET SCREEN ── */
-    #duet {
-      gap: 0;
-      justify-content: center;
-    }
+    .intro-btn.primary:hover { background: var(--accent); color: var(--bg); }
+ 
+    /* DUET */
+    #duet { gap: 0; justify-content: center; }
     #canvas-wrap {
       position: relative;
       width: min(70vh, 680px);
       height: min(70vh, 680px);
     }
-    #canvas-container {
-      width: 100%;
-      height: 100%;
-    }
-    #canvas-container canvas {
-      width: 100% !important;
-      height: 100% !important;
-    }
-
-    /* Sound label overlay */
+    #canvas-container { width: 100%; height: 100%; }
+    #canvas-container canvas { width: 100% !important; height: 100% !important; }
+ 
     #sound-info {
       position: absolute;
       bottom: 12px;
@@ -143,21 +128,14 @@
       transition: opacity 0.6s ease;
     }
     #sound-info.visible { opacity: 1; }
-    #sound-label {
-      font-size: 10px;
-      letter-spacing: 3px;
-      color: var(--accent);
-    }
+    #sound-label { font-size: 10px; letter-spacing: 3px; color: var(--accent); }
     #sound-vibe {
-      font-size: 10px;
-      letter-spacing: 2px;
-      color: var(--dim);
-      font-style: italic;
       font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
       font-size: 13px;
+      color: var(--dim);
     }
-
-    /* Round indicators */
+ 
     #rounds {
       position: absolute;
       bottom: 12px;
@@ -172,12 +150,8 @@
       border: 1px solid var(--dim);
       transition: all 0.4s ease;
     }
-    .round-dot.filled {
-      background: var(--accent);
-      border-color: var(--accent);
-    }
-
-    /* Loading pulse overlay */
+    .round-dot.filled { background: var(--accent); border-color: var(--accent); }
+ 
     #loading-overlay {
       position: absolute;
       inset: 0;
@@ -198,6 +172,7 @@
       border-radius: 50%;
       border: 1px solid var(--accent);
       animation: pulse-out 1.5s ease-out infinite;
+      position: absolute;
     }
     #loading-overlay .pulse-ring:nth-child(2) { animation-delay: 0.5s; }
     #loading-overlay .pulse-ring:nth-child(3) { animation-delay: 1s; }
@@ -209,9 +184,9 @@
       font-size: 10px;
       letter-spacing: 4px;
       color: var(--dim);
+      margin-top: 80px;
     }
-
-    /* Status & input */
+ 
     #ui-row {
       display: flex;
       flex-direction: column;
@@ -220,12 +195,7 @@
       margin-top: 20px;
       width: min(70vh, 680px);
     }
-    #status {
-      font-size: 10px;
-      letter-spacing: 4px;
-      color: var(--dim);
-      height: 16px;
-    }
+    #status { font-size: 10px; letter-spacing: 4px; color: var(--dim); height: 16px; }
     #word-input {
       background: transparent;
       border: none;
@@ -243,8 +213,8 @@
     }
     #word-input:focus { border-color: var(--accent); }
     #word-input::placeholder { color: var(--dim); }
-
-    /* ── PROGRESSION SCREEN ── */
+ 
+    /* PROGRESSION */
     #progression {
       gap: 0;
       padding: 40px;
@@ -274,23 +244,14 @@
       flex-wrap: wrap;
       margin-bottom: 48px;
     }
-    .prog-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
+    .prog-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
     .prog-item img {
       width: clamp(140px, 22vw, 220px);
       height: clamp(140px, 22vw, 220px);
       object-fit: cover;
       border: 1px solid rgba(200,184,154,0.2);
     }
-    .prog-item-label {
-      font-size: 9px;
-      letter-spacing: 3px;
-      color: var(--accent);
-    }
+    .prog-item-label { font-size: 9px; letter-spacing: 3px; color: var(--accent); }
     .prog-item-vibe {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
@@ -299,16 +260,9 @@
       text-align: center;
       max-width: 180px;
     }
-    .prog-arrow {
-      font-size: 20px;
-      color: var(--dim);
-      align-self: center;
-      padding-bottom: 50px;
-    }
-    #prog-buttons {
-      display: flex;
-      gap: 16px;
-    }
+    .prog-arrow { font-size: 20px; color: var(--dim); align-self: center; padding-bottom: 50px; }
+ 
+    #prog-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
     .prog-btn {
       background: transparent;
       border: 1px solid var(--dim);
@@ -320,23 +274,21 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
-    .prog-btn:hover {
-      border-color: var(--fg);
-      color: var(--fg);
-    }
-    .prog-btn.primary {
-      border-color: var(--accent);
+    .prog-btn:hover { border-color: var(--fg); color: var(--fg); }
+    .prog-btn.primary { border-color: var(--accent); color: var(--accent); }
+    .prog-btn.primary:hover { background: var(--accent); color: var(--bg); }
+    #share-status {
+      margin-top: 16px;
+      font-size: 10px;
+      letter-spacing: 3px;
       color: var(--accent);
-    }
-    .prog-btn.primary:hover {
-      background: var(--accent);
-      color: var(--bg);
+      height: 16px;
     }
   </style>
 </head>
 <body>
-
-<!-- INTRO SCREEN -->
+ 
+<!-- INTRO -->
 <div class="screen" id="intro">
   <div class="title">Sound Duet</div>
   <div class="subtitle">A COLLABORATION BETWEEN HUMAN AND AI</div>
@@ -344,7 +296,7 @@
   <div class="instructions">
     <div class="step">
       <div class="step-num">01</div>
-      <div class="step-text"><em>Make a sound.</em> Sing, hum, play an instrument, clap, or let the world speak for you. Anything goes.</div>
+      <div class="step-text"><em>Make a sound.</em> Sing, hum, play an instrument, clap, or let the world speak for you.</div>
     </div>
     <div class="step">
       <div class="step-num">02</div>
@@ -352,17 +304,20 @@
     </div>
     <div class="step">
       <div class="step-num">03</div>
-      <div class="step-text"><em>You respond.</em> Type a single word or feeling. The next round will carry it forward.</div>
+      <div class="step-text"><em>You respond.</em> Type a single word or feeling. The next round carries it forward.</div>
     </div>
     <div class="step">
       <div class="step-num">04</div>
       <div class="step-text">After <em>three rounds</em>, the final image is a duet — neither yours alone nor the machine's.</div>
     </div>
   </div>
-  <button id="begin-btn">BEGIN</button>
+  <div id="intro-buttons">
+    <a class="intro-btn" href="gallery.html">VIEW GALLERY</a>
+    <button class="intro-btn primary" id="begin-btn">BEGIN</button>
+  </div>
 </div>
-
-<!-- DUET SCREEN -->
+ 
+<!-- DUET -->
 <div class="screen hidden" id="duet">
   <div id="canvas-wrap">
     <div id="canvas-container"></div>
@@ -387,21 +342,24 @@
     <input id="word-input" type="text" placeholder="a feeling..." maxlength="30"/>
   </div>
 </div>
-
-<!-- PROGRESSION SCREEN -->
+ 
+<!-- PROGRESSION -->
 <div class="screen hidden" id="progression">
   <div class="prog-title">The Duet</div>
   <div class="prog-subtitle">YOUR COLLABORATION WITH AI</div>
   <div id="progression-images"></div>
   <div id="prog-buttons">
-    <button class="prog-btn primary" id="save-final-btn">SAVE FINAL IMAGE</button>
+    <button class="prog-btn primary" id="save-final-btn">SAVE IMAGE</button>
+    <button class="prog-btn primary" id="share-btn">SHARE TO GALLERY</button>
     <button class="prog-btn" id="restart-btn">NEW DUET</button>
   </div>
+  <div id="share-status"></div>
 </div>
-
+ 
 <script>
 const BACKEND_URL = "https://rynamaru-try-number-three.hf.space/analyze";
-
+const SUBMIT_URL = "https://rynamaru-try-number-three.hf.space/submit";
+ 
 let state = "idle";
 let mediaRecorder;
 let audioChunks = [];
@@ -414,21 +372,20 @@ let recordingStarted = false;
 let allImageBlobs = [];
 let allLabels = [];
 let allVibes = [];
-
+ 
 const wordInput = document.getElementById('word-input');
 const status = document.getElementById('status');
 const soundInfo = document.getElementById('sound-info');
 const soundLabel = document.getElementById('sound-label');
 const soundVibe = document.getElementById('sound-vibe');
 const loadingOverlay = document.getElementById('loading-overlay');
-
-// Intro → Duet
+const shareStatus = document.getElementById('share-status');
+ 
 document.getElementById('begin-btn').addEventListener('click', function() {
   document.getElementById('intro').classList.add('hidden');
   document.getElementById('duet').classList.remove('hidden');
 });
-
-// Save final
+ 
 document.getElementById('save-final-btn').addEventListener('click', function() {
   if (window.lastImageBlob) {
     const link = document.createElement('a');
@@ -437,10 +394,38 @@ document.getElementById('save-final-btn').addEventListener('click', function() {
     link.click();
   }
 });
-
-// Restart
+ 
 document.getElementById('restart-btn').addEventListener('click', () => location.reload());
-
+ 
+document.getElementById('share-btn').addEventListener('click', async function() {
+  if (!window.lastImageBlob) return;
+ 
+  shareStatus.textContent = "SHARING...";
+  this.disabled = true;
+ 
+  try {
+    const formData = new FormData();
+    formData.append('final_image', window.lastImageBlob, 'duet.png');
+    formData.append('labels', allLabels.join(' | '));
+    formData.append('vibes', allVibes.join(' | '));
+ 
+    const response = await fetch(SUBMIT_URL, { method: 'POST', body: formData });
+    const data = await response.json();
+ 
+    if (data.success) {
+      shareStatus.textContent = `SHARED — ${data.total} DUETS IN THE GALLERY`;
+      document.getElementById('share-btn').textContent = "SHARED ✓";
+    } else {
+      shareStatus.textContent = "SHARE FAILED — TRY AGAIN";
+      this.disabled = false;
+    }
+  } catch (err) {
+    console.error(err);
+    shareStatus.textContent = "SHARE FAILED — TRY AGAIN";
+    this.disabled = false;
+  }
+});
+ 
 function updateDots() {
   for (let i = 0; i < MAX_ROUNDS; i++) {
     const dot = document.getElementById(`dot-${i}`);
@@ -448,15 +433,15 @@ function updateDots() {
     else dot.classList.remove('filled');
   }
 }
-
+ 
 function showProgression() {
   document.getElementById('duet').classList.add('hidden');
   const prog = document.getElementById('progression');
   prog.classList.remove('hidden');
-
+ 
   const container = document.getElementById('progression-images');
   container.innerHTML = '';
-
+ 
   allImageBlobs.forEach((blob, i) => {
     if (i > 0) {
       const arrow = document.createElement('div');
@@ -466,39 +451,37 @@ function showProgression() {
     }
     const item = document.createElement('div');
     item.className = 'prog-item';
-
+ 
     const img = document.createElement('img');
     img.src = URL.createObjectURL(blob);
-
+ 
     const lbl = document.createElement('div');
     lbl.className = 'prog-item-label';
     lbl.textContent = `ROUND ${i + 1}  —  ${(allLabels[i] || '').toUpperCase()}`;
-
+ 
     const vibe = document.createElement('div');
     vibe.className = 'prog-item-vibe';
     vibe.textContent = allVibes[i] || '';
-
+ 
     item.appendChild(img);
     item.appendChild(lbl);
     item.appendChild(vibe);
     container.appendChild(item);
   });
 }
-
+ 
 new p5(function(p) {
   pInstance = p;
-
+ 
   p.setup = function() {
     const size = Math.min(window.innerHeight * 0.7, 680);
     let canvas = p.createCanvas(size, size);
     canvas.parent('canvas-container');
     p.background(8);
   };
-
+ 
   p.draw = function() {
-    if (currentImage) {
-      p.image(currentImage, 0, 0, p.width, p.height);
-    }
+    if (currentImage) p.image(currentImage, 0, 0, p.width, p.height);
     if (state === "idle") {
       let pulse = p.sin(p.frameCount * 0.04) * 12 + 36;
       p.noFill();
@@ -510,7 +493,7 @@ new p5(function(p) {
       p.ellipse(p.width/2, p.height/2, 52, 52);
     }
   };
-
+ 
   p.mousePressed = function() {
     if (state === "idle" && !recordingStarted) {
       recordingStarted = true;
@@ -520,13 +503,13 @@ new p5(function(p) {
     }
   };
 });
-
+ 
 function startRecording() {
   state = "recording";
   status.textContent = "RECORDING — CLICK TO STOP";
   soundInfo.classList.remove('visible');
   audioChunks = [];
-
+ 
   navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
     mediaRecorder = new MediaRecorder(stream);
     mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
@@ -535,7 +518,7 @@ function startRecording() {
     setTimeout(() => { if (state === "recording") stopRecording(); }, 5000);
   });
 }
-
+ 
 function stopRecording() {
   if (mediaRecorder && mediaRecorder.state !== "inactive") mediaRecorder.stop();
   state = "generating";
@@ -543,7 +526,7 @@ function stopRecording() {
   status.textContent = "INTERPRETING YOUR SOUND";
   loadingOverlay.classList.add('visible');
 }
-
+ 
 async function sendAudio() {
   const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
   const formData = new FormData();
@@ -554,39 +537,34 @@ async function sendAudio() {
   if (window.lastImageBlob) {
     formData.append('previous_image', window.lastImageBlob, 'previous.png');
   }
-
+ 
   try {
     const response = await fetch(BACKEND_URL, { method: 'POST', body: formData });
-
     const label = response.headers.get('X-Label') || '';
     const vibe = response.headers.get('X-Vibe') || '';
     previousVibe = vibe || previousVibe;
-
+ 
     const blob = await response.blob();
     window.lastImageBlob = blob;
     allImageBlobs.push(blob);
     allLabels.push(label);
     allVibes.push(vibe);
-
+ 
     const url = URL.createObjectURL(blob);
-
     pInstance.loadImage(url, function(loadedImg) {
       currentImage = loadedImg;
       round++;
       updateDots();
       loadingOverlay.classList.remove('visible');
-
-      // Show sound label
       soundLabel.textContent = label.toUpperCase();
       soundVibe.textContent = vibe;
       soundInfo.classList.add('visible');
-
       state = "responding";
       status.textContent = `ROUND ${round} — TYPE A FEELING, PRESS ENTER`;
       wordInput.style.display = "block";
       wordInput.focus();
     });
-
+ 
   } catch (err) {
     console.error(err);
     loadingOverlay.classList.remove('visible');
@@ -595,7 +573,7 @@ async function sendAudio() {
     recordingStarted = false;
   }
 }
-
+ 
 wordInput.addEventListener('keydown', function(e) {
   if (e.key === 'Enter' && wordInput.value.trim()) {
     e.preventDefault();
@@ -603,14 +581,14 @@ wordInput.addEventListener('keydown', function(e) {
     window.lastUserWord = wordInput.value.trim();
     wordInput.value = '';
     wordInput.style.display = "none";
-
+ 
     if (round >= MAX_ROUNDS) {
       state = "done";
       status.textContent = "DUET COMPLETE";
       setTimeout(showProgression, 1200);
       return;
     }
-
+ 
     setTimeout(() => {
       state = "idle";
       recordingStarted = false;

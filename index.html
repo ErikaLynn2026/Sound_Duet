@@ -101,10 +101,7 @@
       align-items: center;
     }
     .intro-btn:hover { border-color: var(--fg); color: var(--fg); }
-    .intro-btn.primary {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
+    .intro-btn.primary { border-color: var(--accent); color: var(--accent); }
     .intro-btn.primary:hover { background: var(--accent); color: var(--bg); }
  
     /* DUET */
@@ -273,6 +270,9 @@
       letter-spacing: 3px;
       cursor: pointer;
       transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
     }
     .prog-btn:hover { border-color: var(--fg); color: var(--fg); }
     .prog-btn.primary { border-color: var(--accent); color: var(--accent); }
@@ -400,7 +400,6 @@ document.getElementById('restart-btn').addEventListener('click', () => location.
  
 document.getElementById('share-btn').addEventListener('click', async function() {
   if (!window.lastImageBlob) return;
- 
   shareStatus.textContent = "SHARING...";
   this.disabled = true;
  

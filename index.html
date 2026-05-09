@@ -12,7 +12,6 @@
       --fg: #e8e4dc;
       --accent: #c8b89a;
       --dim: rgba(232, 228, 220, 0.35);
-      --red: #d44;
     }
 
     html, body {
@@ -33,10 +32,7 @@
       justify-content: center;
       transition: opacity 0.8s ease;
     }
-    .screen.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
+    .screen.hidden { opacity: 0; pointer-events: none; }
 
     /* INTRO */
     #intro { gap: 0; padding: 40px; }
@@ -46,7 +42,6 @@
       font-weight: 300;
       font-style: italic;
       letter-spacing: -1px;
-      color: var(--fg);
       line-height: 1;
       margin-bottom: 8px;
     }
@@ -65,26 +60,10 @@
       width: 100%;
     }
     #intro .step { display: flex; align-items: flex-start; gap: 20px; }
-    #intro .step-num {
-      font-size: 10px;
-      letter-spacing: 2px;
-      color: var(--accent);
-      min-width: 24px;
-      padding-top: 2px;
-    }
-    #intro .step-text {
-      font-size: 13px;
-      line-height: 1.6;
-      color: var(--dim);
-      font-weight: 300;
-    }
+    #intro .step-num { font-size: 10px; letter-spacing: 2px; color: var(--accent); min-width: 24px; padding-top: 2px; }
+    #intro .step-text { font-size: 13px; line-height: 1.6; color: var(--dim); font-weight: 300; }
     #intro .step-text em { color: var(--fg); font-style: normal; }
-    #intro .divider {
-      width: 40px;
-      height: 1px;
-      background: var(--dim);
-      margin-bottom: 60px;
-    }
+    #intro .divider { width: 40px; height: 1px; background: var(--dim); margin-bottom: 60px; }
     #intro-buttons { display: flex; gap: 16px; }
     .intro-btn {
       background: transparent;
@@ -101,10 +80,7 @@
       align-items: center;
     }
     .intro-btn:hover { border-color: var(--fg); color: var(--fg); }
-    .intro-btn.primary {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
+    .intro-btn.primary { border-color: var(--accent); color: var(--accent); }
     .intro-btn.primary:hover { background: var(--accent); color: var(--bg); }
 
     /* DUET */
@@ -129,27 +105,10 @@
     }
     #sound-info.visible { opacity: 1; }
     #sound-label { font-size: 10px; letter-spacing: 3px; color: var(--accent); }
-    #sound-vibe {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 13px;
-      color: var(--dim);
-    }
+    #sound-vibe { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: var(--dim); }
 
-    #rounds {
-      position: absolute;
-      bottom: 12px;
-      right: 12px;
-      display: flex;
-      gap: 8px;
-    }
-    .round-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      border: 1px solid var(--dim);
-      transition: all 0.4s ease;
-    }
+    #rounds { position: absolute; bottom: 12px; right: 12px; display: flex; gap: 8px; }
+    .round-dot { width: 6px; height: 6px; border-radius: 50%; border: 1px solid var(--dim); transition: all 0.4s ease; }
     .round-dot.filled { background: var(--accent); border-color: var(--accent); }
 
     #loading-overlay {
@@ -180,21 +139,9 @@
       0% { transform: scale(0.3); opacity: 1; }
       100% { transform: scale(2.5); opacity: 0; }
     }
-    #loading-overlay .loading-text {
-      font-size: 10px;
-      letter-spacing: 4px;
-      color: var(--dim);
-      margin-top: 80px;
-    }
+    #loading-overlay .loading-text { font-size: 10px; letter-spacing: 4px; color: var(--dim); margin-top: 80px; }
 
-    #ui-row {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-      margin-top: 20px;
-      width: min(70vh, 680px);
-    }
+    #ui-row { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: 20px; width: min(70vh, 680px); }
     #status { font-size: 10px; letter-spacing: 4px; color: var(--dim); height: 16px; }
     #word-input {
       background: transparent;
@@ -215,53 +162,15 @@
     #word-input::placeholder { color: var(--dim); }
 
     /* PROGRESSION */
-    #progression {
-      gap: 0;
-      padding: 40px;
-      overflow-y: auto;
-      justify-content: flex-start;
-      padding-top: 80px;
-    }
-    #progression .prog-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(24px, 4vw, 40px);
-      font-weight: 300;
-      font-style: italic;
-      letter-spacing: 2px;
-      margin-bottom: 8px;
-    }
-    #progression .prog-subtitle {
-      font-size: 10px;
-      letter-spacing: 4px;
-      color: var(--dim);
-      margin-bottom: 48px;
-    }
-    #progression-images {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 48px;
-    }
+    #progression { gap: 0; padding: 40px; overflow-y: auto; justify-content: flex-start; padding-top: 80px; }
+    #progression .prog-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 4vw, 40px); font-weight: 300; font-style: italic; letter-spacing: 2px; margin-bottom: 8px; }
+    #progression .prog-subtitle { font-size: 10px; letter-spacing: 4px; color: var(--dim); margin-bottom: 48px; }
+    #progression-images { display: flex; gap: 16px; align-items: flex-start; justify-content: center; flex-wrap: wrap; margin-bottom: 48px; }
     .prog-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-    .prog-item img {
-      width: clamp(140px, 22vw, 220px);
-      height: clamp(140px, 22vw, 220px);
-      object-fit: cover;
-      border: 1px solid rgba(200,184,154,0.2);
-    }
+    .prog-item img { width: clamp(140px, 22vw, 220px); height: clamp(140px, 22vw, 220px); object-fit: cover; border: 1px solid rgba(200,184,154,0.2); }
     .prog-item-label { font-size: 9px; letter-spacing: 3px; color: var(--accent); }
-    .prog-item-vibe {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 13px;
-      color: var(--dim);
-      text-align: center;
-      max-width: 180px;
-    }
+    .prog-item-vibe { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: var(--dim); text-align: center; max-width: 180px; }
     .prog-arrow { font-size: 20px; color: var(--dim); align-self: center; padding-bottom: 50px; }
-
     #prog-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
     .prog-btn {
       background: transparent;
@@ -280,13 +189,7 @@
     .prog-btn:hover { border-color: var(--fg); color: var(--fg); }
     .prog-btn.primary { border-color: var(--accent); color: var(--accent); }
     .prog-btn.primary:hover { background: var(--accent); color: var(--bg); }
-    #share-status {
-      margin-top: 16px;
-      font-size: 10px;
-      letter-spacing: 3px;
-      color: var(--accent);
-      height: 16px;
-    }
+    #share-status { margin-top: 16px; font-size: 10px; letter-spacing: 3px; color: var(--accent); height: 16px; }
   </style>
 </head>
 <body>
@@ -376,6 +279,7 @@ let recordingStarted = false;
 let allImageBlobs = [];
 let allLabels = [];
 let allVibes = [];
+let previousImageBlob = null;
 
 const wordInput = document.getElementById('word-input');
 const status = document.getElementById('status');
@@ -391,10 +295,10 @@ document.getElementById('begin-btn').addEventListener('click', function() {
 });
 
 document.getElementById('save-final-btn').addEventListener('click', function() {
-  if (window.lastImageBlob) {
+  if (previousImageBlob) {
     const link = document.createElement('a');
     link.download = 'sound-duet.png';
-    link.href = URL.createObjectURL(window.lastImageBlob);
+    link.href = URL.createObjectURL(previousImageBlob);
     link.click();
   }
 });
@@ -402,13 +306,13 @@ document.getElementById('save-final-btn').addEventListener('click', function() {
 document.getElementById('restart-btn').addEventListener('click', () => location.reload());
 
 document.getElementById('share-btn').addEventListener('click', async function() {
-  if (!window.lastImageBlob) return;
+  if (!previousImageBlob) return;
   shareStatus.textContent = "SHARING...";
   this.disabled = true;
 
   try {
     const formData = new FormData();
-    formData.append('final_image', window.lastImageBlob, 'duet.png');
+    formData.append('final_image', previousImageBlob, 'duet.png');
     formData.append('labels', allLabels.join(' | '));
     formData.append('vibes', allVibes.join(' | '));
 
@@ -439,8 +343,7 @@ function updateDots() {
 
 function showProgression() {
   document.getElementById('duet').classList.add('hidden');
-  const prog = document.getElementById('progression');
-  prog.classList.remove('hidden');
+  document.getElementById('progression').classList.remove('hidden');
 
   const container = document.getElementById('progression-images');
   container.innerHTML = '';
@@ -539,15 +442,28 @@ async function sendAudio() {
   formData.append('previous_words', window.allUserWords || '');
   formData.append('round_num', round + 1);
 
+  // Send previous image blob if we have one
+  if (previousImageBlob) {
+    console.log(`Round ${round + 1}: Sending previous image, size: ${previousImageBlob.size}`);
+    formData.append('previous_image', previousImageBlob, 'previous.png');
+  } else {
+    console.log(`Round ${round + 1}: No previous image`);
+  }
+
   try {
     const response = await fetch(BACKEND_URL, { method: 'POST', body: formData });
     const label = response.headers.get('X-Label') || '';
     const vibe = response.headers.get('X-Vibe') || '';
     previousVibe = vibe || previousVibe;
 
+    // Get the blob and store it BEFORE creating object URL
     const blob = await response.blob();
-    window.lastImageBlob = blob;
-    allImageBlobs.push(blob);
+    console.log(`Round ${round + 1}: Received image blob, size: ${blob.size}`);
+
+    // Store as the previous image for next round
+    previousImageBlob = new Blob([await blob.arrayBuffer()], { type: 'image/png' });
+
+    allImageBlobs.push(new Blob([await previousImageBlob.arrayBuffer()], { type: 'image/png' }));
     allLabels.push(label);
     allVibes.push(vibe);
 

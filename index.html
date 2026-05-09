@@ -533,6 +533,7 @@ async function sendAudio() {
   formData.append('audio', audioBlob, 'recording.webm');
   formData.append('previous_vibe', previousVibe);
   formData.append('user_word', window.lastUserWord || '');
+  formData.append('previous_words', window.allUserWords || '');
   formData.append('round_num', round + 1);
   if (window.lastImageBlob) {
     formData.append('previous_image', window.lastImageBlob, 'previous.png');
